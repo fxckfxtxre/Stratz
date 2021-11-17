@@ -1,1 +1,0 @@
-ERROR_NOT_FOUND = Exception("Object not found.")
