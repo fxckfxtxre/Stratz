@@ -11,7 +11,7 @@ from stratz.lang import code_English
 
 
 def main():
-    api = stratz.Api(lang=code_English)
+    api = stratz.Api(lang=code_English, token=<YOUR_BEARER_TOKEN>)
 
     player = api.get_player(91064780) #return player
     match = api.get_match(6279293344) #return match details

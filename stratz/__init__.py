@@ -5,14 +5,18 @@ from .errors import ERROR_NOT_FOUND
 
 
 class Api():
-    def __init__(self, lang) -> None:
+    def __init__(self, token, lang) -> None:
         self.executor = requests.Session()
+        self.headers = {
+                'Authorization': f'Bearer {token}'
+        }
         self.lang = lang
 
     def all_heroes(self) -> dict:
         return self.executor.request(
             method="GET",
             url=HERO_URL,
+            headers = self.headers,
             params={"languageId": self.lang}
         ).json()
 
@@ -37,6 +41,7 @@ class Api():
         return self.executor.request(
             method="GET",
             url=ITEM_URL,
+            headers=self.headers,
             params={"languageId": self.lang}
         ).json()
 
@@ -45,6 +50,7 @@ class Api():
             return self.executor.request(
                 method="GET",
                 url=ITEM_URL+f"/{id}",
+                headers=self.headers,
                 params={"languageId": self.lang}
             ).json()
         except:
@@ -55,6 +61,7 @@ class Api():
             return self.executor.request(
                 method="GET",
                 url=MATCH_URL+f"/{id}",
+                headers=self.headers,
                 params={"languageId": self.lang}
             ).json()
         except:
@@ -64,6 +71,7 @@ class Api():
         return self.executor.request(
             method="GET",
             url=MATCH_URL+f"/{id}/live",
+            headers=self.headers,
             params={"languageId": self.lang}
         ).json()
 
@@ -72,16 +80,18 @@ class Api():
             return self.executor.request(
                 method="GET",
                 url=PLAYER_URL+f"/{id}",
+                headers=self.headers,
                 params={"languageId": self.lang}
             ).json()
         except:
             raise ERROR_NOT_FOUND
 
-    def get_player_macthes(self, id: int) -> dict:
+    def get_player_matches(self, id: int) -> dict:
         try:
             return self.executor.request(
                 method="GET",
                 url=PLAYER_URL+f"/{id}/matches",
+                headers=self.headers,
                 params={"languageId": self.lang}
             ).json()
         except:
@@ -100,6 +110,7 @@ class Api():
         return self.executor.request(
             method="GET",
             url=LANG_URL,
+            headers=self.headers,
             params={"languageId": self.lang}
         ).json()
 
@@ -107,6 +118,7 @@ class Api():
         return self.executor.request(
             method="GET",
             url=GAME_VERSION_URL,
+            headers=self.headers,
             params={"languageId": self.lang}
         ).json()
 
